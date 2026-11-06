@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101524">
+  <title>Little Kingdoms — A tiny steampunk fantasy RPG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell" id="gameShell">
+    <canvas id="world" aria-label="Common Ground platform game"></canvas>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Common Ground home"><span class="brand-mark">✳</span><span>COMMON<br><b>GROUND</b></span></a>
+      <div class="chapter"><span class="eyebrow">A THIMBLE-SIZED EPIC</span><strong>Seven crowns must fall</strong></div>
+      <button class="icon-btn sound-btn" id="soundBtn" aria-label="Toggle sound">♫</button>
+      <button class="icon-btn menu-btn" id="helpBtn" aria-label="How to play">?</button>
+    </header>
+    <section class="mission-card" aria-label="Your mission">
+      <span class="mission-icon">♛</span>
+      <div><span class="eyebrow">YOUR QUEST</span><strong>Topple the seven tyrants</strong><small id="missionProgress">0 of 7 tyrants defeated</small></div>
+      <div class="progress-ring"><span id="progressText">0/7</span></div>
+    </section>
+    <aside class="character-card" id="characterCard">
+      <div class="avatar-mini">✿</div><div class="character-copy"><span class="eyebrow">YOUR WAY WITH WORDS</span><strong id="playerName">Mira <span>the mediator</span></strong><div class="trait-row"><span>✦ <b id="charismaVal">3</b> charm</span><span>◉ <b id="empathyVal">4</b> empathy</span></div></div>
+    </aside>
+    <div class="world-label"><span class="live-dot"></span><span id="locationLabel">THIMBLEGRASS COMMONS</span><span class="label-divider">/</span><span id="countryLabel">WINDMERE</span></div>
+    <div class="objective" id="objective"><span class="objective-icon">⌖</span><span>Find someone to talk to</span><kbd>E</kbd></div>
+    <div class="controls-hint" id="controlsHint">MOVE <kbd>←</kbd><kbd>→</kbd> &nbsp; JUMP <kbd>SPACE</kbd> &nbsp; TALK <kbd>E</kbd></div>
+    <div class="touch-controls" aria-label="Touch controls">
+      <div class="move-pad"><button class="touch-btn" data-key="left" aria-label="Move left">‹</button><button class="touch-btn" data-key="right" aria-label="Move right">›</button></div>
+      <button class="touch-btn jump-touch" data-key="jump" aria-label="Jump"><span>↑</span><small>JUMP</small></button>
+      <button class="touch-btn talk-touch" id="touchTalk" aria-label="Talk"><span>✦</span><small>TALK</small></button>
+    </div>
+    <div class="toast" id="toast" aria-live="polite"></div>
+    <section class="dialogue hidden" id="dialogue" aria-live="polite">
+      <div class="dialogue-top"><div class="npc-portrait" id="npcPortrait">◉</div><div class="npc-heading"><span class="eyebrow" id="npcRole">NEIGHBOR</span><strong id="npcName">Someone</strong><div class="mood-line" id="npcMood">A little unsure</div></div><button class="close-dialog" id="closeDialog" aria-label="Close conversation">×</button></div>
+      <div class="bond-row"><span>COMMON GROUND</span><div class="bond-track"><i id="bondFill"></i></div><b id="bondValue">0%</b></div>
+      <p class="dialogue-text" id="dialogueText"></p>
+      <div class="response-label">CHOOSE YOUR APPROACH <span id="turnLabel">TURN 1</span></div>
+      <div class="choices" id="choices"></div>
+      <div class="dialogue-footer"><span>Traits shape every conversation</span><span>ESC to step away</span></div>
+    </section>
+    <section class="welcome-screen" id="welcomeScreen">
+      <div class="welcome-art"><span class="sun-orbit orbit-one"></span><span class="sun-orbit orbit-two"></span><span class="welcome-star star-one">✦</span><span class="welcome-star star-two">⚙</span><span class="welcome-sun"></span><span class="welcome-mountain mountain-back"></span><span class="welcome-mountain mountain-front"></span><span class="welcome-caption">SMALL WORLD<br>GIANT TYRANTS</span></div>
+      <div class="welcome-copy"><span class="eyebrow">A TINY-WORLD STEAMPUNK FANTASY RPG</span><h1>Seven kingdoms.<br><em>Seven crowns to break.</em></h1><p>At ant-height, teacups are towers and weeds are forests. Cross seven clockwork countries, rally your party, and overthrow the dictators who rule them.</p><div class="welcome-traits"><span>✦ PLATFORM & EXPLORE</span><span>⚔ PARTY BATTLES</span><span>☼ TALK & DISCOVER</span></div><button class="primary-btn" id="startBtn">Begin the tiny rebellion <span>↗</span></button><div class="welcome-note"><span>⌨</span> Keyboard or touch · Seven countries to liberate</div></div>
+    </section>
+    <section class="battle-screen hidden" id="battleScreen" aria-live="polite">
+      <div class="battle-card">
+        <div class="battle-heading"><div><span class="eyebrow">A TINY-WORLD ENCOUNTER</span><h2 id="battleTitle">Mist Wisp</h2></div><div class="battle-round" id="battleRound">ROUND 1</div></div>
+        <div class="enemy-stage"><div class="enemy-sigil" id="enemySigil">☄</div><div class="enemy-copy"><strong id="enemyName">Mist Wisp</strong><span id="enemyMood">A knot of restless fog blocks the path.</span><div class="enemy-hp"><i id="enemyHpFill"></i></div><small id="enemyHpText">48 / 48 HP</small></div></div>
+        <p class="battle-log" id="battleLog">Your party takes its places.</p>
+        <div class="party-lineup" id="partyLineup"></div>
+        <div class="battle-command-label"><span id="battlePrompt">Mira's turn — choose a command</span><small>Classic turn-based party battle</small></div>
+        <div class="battle-commands" id="battleCommands"></div>
+        <button class="battle-continue hidden" id="battleContinue">Continue journey <span>→</span></button>
+      </div>
+    </section>
+    <section class="ending-screen hidden" id="endingScreen"><div class="ending-icon">♛</div><span class="eyebrow">THE TINY WORLD IS FREE</span><h2>Seven crowns down.<br><em>A thousand futures.</em></h2><p>You crossed seven strange countries, defeated every tyrant, and proved that even the smallest folk can change the world.</p><div class="ending-stats"><span><b id="finalTurns">0</b> thoughtful turns</span><span><b id="finalItems">0</b> keepsakes found</span><span><b id="finalBattles">0</b> encounters won</span></div><button class="primary-btn" id="playAgain">Play again <span>↻</span></button></section>
+    <section class="help-modal hidden" id="helpModal"><div class="help-card"><button class="close-dialog" id="closeHelp" aria-label="Close help">×</button><span class="eyebrow">A NOTE FROM MIRA</span><h2>Explore. Rally. Overthrow.</h2><p>Use <b>← →</b> to cross the tiny world, <b>Space</b> to jump, and <b>E</b> near a neighbor to talk. On a phone, use the touch buttons. Each country is a few hundred ant-steps wide, with its own strange landscape.</p><p>Conversations take turns. Listen, share, encourage, or make a sincere promise; each neighbor responds to a different approach.</p><p>Your party meets eight distinct combatants before each country's tyrant. Battles are turn-based: <b>Attack</b> to strike, <b>Magic</b> to heal a hurt ally or deal heavy damage, and <b>Guard</b> to brace against the next attack. Defeat foes in order to advance, then topple all seven rulers.</p><div class="help-note">A blade may win a battle. Kindness can change what comes after.</div><button class="primary-btn" id="gotIt">Got it <span>→</span></button></div></section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
